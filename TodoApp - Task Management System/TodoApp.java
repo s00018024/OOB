@@ -81,6 +81,12 @@ public class TodoApp {
                     System.out.println("🕙 Ordinamento INSERIMENTO attivato e salvato.");
                     break;
 
+                case "z": // Strategia Alfabetica Reverse
+                    progettoCorrente.setStrategia(new OrdineInverso());
+                    storage.saveTasks(listaProgetti); // Persistenza immediata
+                    System.out.println("Ordine Alfabetico inverso impostato.");
+                    break;
+
                 case "4": // Salva manuale
                     storage.saveTasks(listaProgetti);
                     System.out.println("💾 Salvataggio completato.");
@@ -194,7 +200,7 @@ public class TodoApp {
         System.out.println("3. Mostra Tutto       |  4. Salva");
         System.out.println("6. Cambia Progetto    |  7. Reset Progetto");
         System.out.println("8. Segna come fatto   |  9. Rimuovi completati");
-        System.out.println("A. Ordine Alfabetico  |  I. Ordine Inserimento");
+        System.out.println("A. Ordine Alfabetico  |  I. Ordine Inserimento |  Z. Ordine Inverso");
         System.out.println("5. Esci");
         System.out.print("Scelta: ");
     }
