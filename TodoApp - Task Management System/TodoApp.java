@@ -9,7 +9,7 @@ public class TodoApp {
         
         List<Project> listaProgetti = new ArrayList<>();
 
-        // 1. CARICAMENTO DATI (Gestione sicura delle eccezioni - Punto 4)
+        // 1. Caricamento dati
         try {
             listaProgetti = storage.loadTasks();
             if (listaProgetti.isEmpty()) {
@@ -75,24 +75,24 @@ public class TodoApp {
                     System.out.println("🔤 Ordinamento ALFABETICO attivato e salvato.");
                     break;
 
-                case "i": // Strategia Inserimento (null)
+                case "i": // Strategia Inserimento 
                     progettoCorrente.setStrategia(null);
-                    storage.saveTasks(listaProgetti); // Persistenza immediata
+                    storage.saveTasks(listaProgetti); 
                     System.out.println("🕙 Ordinamento INSERIMENTO attivato e salvato.");
                     break;
 
                 case "z": // Strategia Alfabetica Reverse
                     progettoCorrente.setStrategia(new OrdineInverso());
-                    storage.saveTasks(listaProgetti); // Persistenza immediata
+                    storage.saveTasks(listaProgetti); 
                     System.out.println("Ordine Alfabetico inverso impostato.");
                     break;
 
-                case "4": // Salva manuale
+                case "4": // Salvataggio manuale
                     storage.saveTasks(listaProgetti);
                     System.out.println("💾 Salvataggio completato.");
                     break;
 
-                case "6": // Cambia Progetto
+                case "6": // Cambio Progetto
                     if (listaProgetti.size() <= 1) {
                         System.out.println("ℹ️ Esiste solo un progetto.");
                         break;
@@ -141,7 +141,7 @@ public class TodoApp {
                     }
                     break;
 
-                case "9": // Rimuovi completati (CON CONTROLLO REALE)
+                case "9": // Rimuovi completati 
                     if (isSistemaVuoto(listaProgetti)) {
                         System.out.println("⚠️ Non c'è nessun task nel sistema. Niente da rimuovere!");
                         break;
@@ -170,7 +170,7 @@ public class TodoApp {
         tastiera.close();
     }
 
-    // --- METODI DI SUPPORTO ---
+    // --- Altri metodi (aggiunti qua per rendere il codice più pulito) ---
 
     private static boolean isSistemaVuoto(List<Project> lista) {
         for (Project p : lista) {
