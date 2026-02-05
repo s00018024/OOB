@@ -37,9 +37,7 @@ public class TaskTest {
 
     @Test
     void testSanitization() {
-        // VERIFICA SICUREZZA: 
-        // Ora il pipe '|' è vietato, quindi la Factory deve lanciare un'eccezione.
-        // Se l'eccezione viene lanciata, il test passa.
+        // Verifica di sicurezza 
         assertThrows(IllegalArgumentException.class, () -> {
             TaskFactory.createTask("SIMPLE", "Task|Pericoloso");
         });
@@ -47,7 +45,7 @@ public class TaskTest {
 
     @Test
     void testEmptyNameException() {
-        // Verifichiamo che non sia possibile creare task con nomi vuoti
+        // Verifico che non sia possibile creare task con nomi vuoti
         assertThrows(IllegalArgumentException.class, () -> {
             TaskFactory.createTask("SIMPLE", "");
         });
