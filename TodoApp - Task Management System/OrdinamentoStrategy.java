@@ -11,12 +11,11 @@ public interface OrdinamentoStrategy {
 class OrdineAlfabetico implements OrdinamentoStrategy {
     @Override
     public void ordina(List<TaskComponent> componenti) {
-        // Uso un Comparator per confrontare i nomi
         componenti.sort(Comparator.comparing(TaskComponent::getName));
     }
 }
 
-// Opzione 2: Ordine inverso (giusto per avere una scelta)
+// Opzione 2: Ordine inverso
 class OrdineInverso implements OrdinamentoStrategy {
     @Override
     public void ordina(List<TaskComponent> componenti) {
