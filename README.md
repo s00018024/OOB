@@ -41,7 +41,7 @@ TodoApp is a command-line task management system that allows users to organize t
 - **Error Recovery**: Graceful handling of corrupted data files
 
 ### User Interface
-
+```
 --------------------------------------------
  PROGETTO ATTIVO: [GENERALI]
 --------------------------------------------
@@ -52,7 +52,7 @@ TodoApp is a command-line task management system that allows users to organize t
 A. Ordine Alfabetico  |  I. Ordine Inserimento
 5. Esci
 Scelta: 
-
+```
 
 ---
 
@@ -71,9 +71,10 @@ Scelta:
 - **Extensibility**: Easy to add new task types without modifying client code
 
 **Example**:
+```
 TaskComponent task = TaskFactory.createTask("SIMPLE", "Study Java");
 // Automatic sanitization and validation applied
-
+```
 
 ---
 
@@ -88,11 +89,12 @@ TaskComponent task = TaskFactory.createTask("SIMPLE", "Study Java");
 - **Recursion**: Naturally handles nested structures (project completion checks all sub-tasks recursively)
 
 **Structure**:
+```
 TaskComponent (interface)
 ├── SimpleTask (leaf)
 └── Project (composite)
     └── List<TaskComponent> (can contain tasks OR projects)
-
+```
 
 ---
 
@@ -107,10 +109,11 @@ TaskComponent (interface)
 - **Flexibility**: Can change internal storage (ArrayList → LinkedList) without breaking client code
 
 **Usage**:
+```
 for (TaskComponent task : project) {
     task.display("  ");
 }
-
+```
 
 ---
 
@@ -125,11 +128,12 @@ for (TaskComponent task : project) {
 - **Logging Separation**: Technical details logged internally, sanitized messages shown to users
 
 **Example**:
+```
 } catch (Exception e) {
     LOGGER.log(Level.SEVERE, "Technical error details");  // Internal log
     throw new TaskStorageException("User-friendly message", null);  // No stack trace
 }
-
+```
 
 ---
 
@@ -144,9 +148,10 @@ for (TaskComponent task : project) {
 - **Stream Operations**: Modern functional operations (`removeIf`, `allMatch`)
 
 **Examples**:
+```
 componenti.removeIf(TaskComponent::isCompleted);  // Remove completed tasks
 componenti.stream().allMatch(TaskComponent::isCompleted);  // Check all completed
-
+```
 
 ---
 
@@ -179,8 +184,9 @@ componenti.stream().allMatch(TaskComponent::isCompleted);  // Check all complete
 - **Security**: Separates technical errors from user-facing messages
 
 **Configuration**:
+```
 LOGGER.setLevel(Level.SEVERE);  // Only critical errors to console
-
+```
 
 ---
 
@@ -226,6 +232,7 @@ LOGGER.setLevel(Level.SEVERE);  // Only critical errors to console
 **Usage**: Method references, lambda expressions, stream operations
 
 **Examples**:
+```
 // Method references
 componenti.sort(Comparator.comparing(TaskComponent::getName));
 
@@ -234,7 +241,7 @@ componenti.sort((c1, c2) -> c2.getName().compareToIgnoreCase(c1.getName()));
 
 // Stream API
 return componenti.stream().allMatch(TaskComponent::isCompleted);
-
+```
 ---
 
 ## 🚀 Setup and Execution
@@ -244,7 +251,7 @@ return componenti.stream().allMatch(TaskComponent::isCompleted);
 - **JUnit 5**: For running tests (Jupiter API)
 
 ### Project Structure
-
+```
 TodoApp/
 ├── src/
 │   ├── OrdinamentoStrategy.java
@@ -258,14 +265,16 @@ TodoApp/
 │   └── TodoApp.java
 ├── README.md
 └── tasks.txt (generated at runtime)
-
+```
 
 ### Compilation
 
 #### Option 1: Command Line
 
 # Compile with JUnit
+```
 javac -cp ".:junit.jar" *.java
+```
 Note: the junit.jar is already included in the project folder
 
 #### Option 2: IDE (IntelliJ IDEA / Eclipse)
@@ -276,8 +285,9 @@ Note: the junit.jar is already included in the project folder
 ### Execution
 
 #### Run Application
+```
 java TodoApp
-
+```
 
 ### First Run
 On first execution, the application will:
@@ -286,7 +296,7 @@ On first execution, the application will:
 3. Create `tasks.txt` when you save
 
 ### Example Session
-
+```
 --------------------------------------------
  PROGETTO ATTIVO: [GENERALI]
 --------------------------------------------
@@ -304,6 +314,7 @@ Scelta: 3
 --- PANORAMICA COMPLETA ---
 + Progetto: Generali
   [X] Studiare design patterns
+```
 
 ---
 ### Class Diagram
@@ -473,12 +484,14 @@ Implement task research
 
 #### Test Coverage
 
+```
 | Pattern/Feature | Test Method | Status |
 |----------------|-------------|--------|
 | Factory Pattern | `testFactoryCreation()` | ✅ Pass |
 | Composite Pattern | `testCompositeAdd()` | ✅ Pass |
 | Input Sanitization | `testSanitization()` | ✅ Pass |
 | Input Validation | `testEmptyNameException()` | ✅ Pass |
+```
 
 ### Running Tests
 
@@ -495,7 +508,7 @@ java -jar junit.jar --class-path . --scan-class-path
 
 
 #### Expected Output
-
+```
 ╷
 ├─ JUnit Jupiter ✔
 │  └─ TaskTest ✔
@@ -519,7 +532,7 @@ Test run finished after 38 ms
 [         0 tests aborted         ]
 [         4 tests successful      ]
 [         0 tests failed          ]
-
+```
 ---
 
 ## 📄 License
