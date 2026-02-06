@@ -30,10 +30,7 @@ public class StorageManager {
         return instance;
     }
 
-    /**
-     * Sanitizzazione robusta (Punto 3): impedisce al carattere '|' di corrompere il file
-     * e rimuove ritorni a capo che spezzerebbero la logica di lettura per riga.
-     */
+    //Prevengo l'inserimento di caratteri indesiderati
     private String sanitize(String testo) {
         if (testo == null) return "";
         return testo.replace("|", " ")
@@ -42,9 +39,7 @@ public class StorageManager {
                     .trim();
     }
 
-    /**
-     * Salva i progetti e i relativi task sul file di testo.
-     */
+    //Salva i progetti e i relativi task sul file di testo.
     public void saveTasks(List<Project> progetti) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
             for (Project p : progetti) {
@@ -56,18 +51,15 @@ public class StorageManager {
             }
             LOGGER.log(Level.INFO, "Salvataggio completato con successo.");
         } catch (IOException e) {
-            // SICUREZZA (Punto 2): Logghiamo un messaggio fisso, non passiamo l'oggetto 'e'
+            // Mostro un messaggio fisso senza dover passare l'oggetto 'e'
             LOGGER.log(Level.SEVERE, "Errore IO durante il salvataggio sul disco.");
             
-            // Messaggio amichevole per l'utente, senza dettagli tecnici
+            // Messaggio per l'utente, senza dettagli tecnici
             System.out.println("⚠️ Errore: Impossibile salvare i dati. Controlla i permessi della cartella.");
         }
     }
 
-    /**
-     * Carica i dati dal file.
-     * Implementa l'Exception Masking (Punto 4) per evitare leak di informazioni di sistema.
-     */
+     //Caricamento dati sicuro: gestisco le eccezioni in modo che eventuali errori non trapelino all'esterno
     public List<Project> loadTasks() throws TaskStorageException {
         List<Project> listaCaricata = new ArrayList<>();
         File file = new File(FILE_NAME);
@@ -83,7 +75,7 @@ public class StorageManager {
                 String riga = reader.nextLine();
                 String[] pezzi = riga.split("\\|");
 
-                // Validazione lunghezza pezzi per evitare ArrayIndexOutOfBounds (Crash protection)
+                // Controllo lunghezza pezzi per evitare ArrayIndexOutOfBounds
                 if (pezzi.length >= 2 && pezzi[0].equals("PROGETTO")) {
                     progettoCorrente = new Project(pezzi[1]);
                     listaCaricata.add(progettoCorrente);
@@ -102,12 +94,10 @@ public class StorageManager {
                 }
             }
         } catch (Exception e) {
-            // LOGGING PROFESSIONALE (Punto 4):
-            // Scriviamo l'errore tecnico nel log interno ma NON passiamo 'e'
-            // al costruttore per non portarci dietro lo stack trace originale.
+            // Logging avanzato perchè scrivo l'errore solo nel log interno
             LOGGER.log(Level.SEVERE, "Tentativo di caricamento file fallito: formato non valido o permessi negati.");
             
-            // Lanciamo l'eccezione personalizzata con causa 'null' per troncare il leak
+            // Lancio l'eccezione personalizzata 
             throw new TaskStorageException("Il file di salvataggio è corrotto o illeggibile.", null);
         }
         return listaCaricata;
