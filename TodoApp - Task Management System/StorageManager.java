@@ -5,21 +5,16 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Gestisce il salvataggio e il caricamento dei dati.
- * Implementa il pattern Singleton per garantire un unico punto di accesso al file.
- */
+// Usando il Singleton sono sicuro che non ci siano due "StorageManager" che scrivono sullo stesso file contemporaneamente
 public class StorageManager {
     private static StorageManager instance;
     private static final String FILE_NAME = "tasks.txt";
     
-    // Logger configurato per registrare errori internamente senza esporli al terminale utente
+    // Logger configurato per registrare errori internamente senza esporli all'utente
     private static final Logger LOGGER = Logger.getLogger(StorageManager.class.getName());
 
     private StorageManager() {
-        // Questo comando dice al Logger: 
-        // "Mostra i messaggi solo se il programma sta per esplodere (SEVERE)"
-        // Nascondendo i messaggi di "INFO" come quelli del salvataggio.
+        // Mantengo il log pulito mostrando solo gli errori critici
         LOGGER.setLevel(Level.SEVERE); 
     }
 
@@ -30,7 +25,7 @@ public class StorageManager {
         return instance;
     }
 
-    //Prevengo l'inserimento di caratteri indesiderati
+    // Prevengo l'inserimento di caratteri indesiderati
     private String sanitize(String testo) {
         if (testo == null) return "";
         return testo.replace("|", " ")
@@ -39,7 +34,7 @@ public class StorageManager {
                     .trim();
     }
 
-    //Salva i progetti e i relativi task sul file di testo.
+    // Salva i progetti e i relativi task sul file di testo.
     public void saveTasks(List<Project> progetti) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME))) {
             for (Project p : progetti) {
@@ -59,7 +54,7 @@ public class StorageManager {
         }
     }
 
-     //Caricamento dati sicuro: gestisco le eccezioni in modo che eventuali errori non trapelino all'esterno
+     // Caricamento dati sicuro: gestisco le eccezioni in modo che eventuali errori non trapelino all'esterno
     public List<Project> loadTasks() throws TaskStorageException {
         List<Project> listaCaricata = new ArrayList<>();
         File file = new File(FILE_NAME);
