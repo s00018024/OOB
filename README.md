@@ -513,16 +513,20 @@ The junit.jar file is already included in the project folder
 
 #### Execution
 
-# Compile tests
+## Compile tests
 - MacOS/Linux
+```
 javac -cp .:junit.jar TaskTest.java
-
+```
 - Windows
+```
 javac -cp ".;junit.jar" TaskTest.java
+```
 
-# Run tests
+## Run tests
+```
 java -jar junit.jar --class-path . --scan-class-path
-
+```
 
 #### Expected Output
 ```
