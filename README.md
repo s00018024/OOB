@@ -21,7 +21,7 @@ TodoApp is a command-line task management system that allows users to organize t
 - **Add Tasks**: Create simple tasks with validated names
 - **Mark as Completed**: Toggle task status between pending `[ ]` and completed `[X]`
 - **Remove Completed**: Clean up finished tasks from projects
-- **Task Validation**: Automatic sanitization against XSS and injection attacks
+- **Task Validation**: Automatic sanitization against injection attacks
 
 #### Project Organization
 - **Multiple Projects**: Create and manage separate project containers
@@ -289,8 +289,9 @@ Note: the junit.jar is already included in the project folder
 ### Execution
 
 #### Run Application
+```
 java TodoApp
-
+```
 
 ### First Run
 On first execution, the application will:
@@ -479,7 +480,7 @@ classDiagram
 ### Security Enhancements
 
 #### Implemented ✅
-- Input sanitization (XSS prevention)
+- Input sanitization
 - Exception shielding (no stack trace leaks)
 - File injection prevention (pipe character blocked)
 
