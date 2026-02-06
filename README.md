@@ -53,7 +53,6 @@ A. Ordine Alfabetico  |  I. Ordine Inserimento
 5. Esci
 Scelta: 
 ```
-
 ---
 
 ## 🏗️ Technologies and Design Patterns
@@ -72,8 +71,8 @@ Scelta:
 
 **Example**:
 ```
-TaskComponent task = TaskFactory.createTask("SIMPLE", "Study Java");
 // Automatic sanitization and validation applied
+TaskComponent task = TaskFactory.createTask("SIMPLE", "Study Java");
 ```
 
 ---
@@ -129,7 +128,7 @@ for (TaskComponent task : project) {
 
 **Example**:
 ```
-} catch (Exception e) {
+catch (Exception e) {
     LOGGER.log(Level.SEVERE, "Technical error details");  // Internal log
     throw new TaskStorageException("User-friendly message", null);  // No stack trace
 }
@@ -184,9 +183,8 @@ componenti.stream().allMatch(TaskComponent::isCompleted);  // Check all complete
 - **Security**: Separates technical errors from user-facing messages
 
 **Configuration**:
-```
 LOGGER.setLevel(Level.SEVERE);  // Only critical errors to console
-```
+
 
 ---
 
@@ -253,18 +251,19 @@ return componenti.stream().allMatch(TaskComponent::isCompleted);
 ### Project Structure
 ```
 TodoApp/
-├── src/
-│   ├── OrdinamentoStrategy.java
-│   ├── Project.java
-│   ├── SimpleTask.java
-│   ├── StorageManager.java
-│   ├── TaskComponent.java
-│   ├── TaskFactory.java
-│   ├── TaskStorageException.java
-│   ├── TaskTest.java
-│   └── TodoApp.java
-├── README.md
-└── tasks.txt (generated at runtime)
+├── OrdinamentoStrategy.java    # Algoritmi di ordinamento
+├── Project.java                # Gruppo di task
+├── SimpleTask.java             # Task singolo
+├── StorageManager.java         # Salvataggio/Caricamento
+├── TaskComponent.java          # Interfaccia base
+├── TaskFactory.java            # Gestore creazione task
+├── TaskStorageException.java   # Eccezione personalizzata
+├── TaskTest.java               # Unit Tests (JUnit)
+├── TodoApp.java                # Punto di ingresso (Main)
+│
+├── junit.jar                   # Libreria per i test
+├── README.md                   # Documentazione
+└── tasks.txt                   # Database locale (generated at runtime) 
 ```
 
 ### Compilation
@@ -272,9 +271,12 @@ TodoApp/
 #### Option 1: Command Line
 
 # Compile with JUnit
-```
-javac -cp ".:junit.jar" *.java
-```
+- MacOS/Linux
+javac -cp .:junit.jar TaskTest.java
+
+- Windows
+javac -cp ".;junit.jar" TaskTest.java
+
 Note: the junit.jar is already included in the project folder
 
 #### Option 2: IDE (IntelliJ IDEA / Eclipse)
@@ -285,9 +287,8 @@ Note: the junit.jar is already included in the project folder
 ### Execution
 
 #### Run Application
-```
 java TodoApp
-```
+
 
 ### First Run
 On first execution, the application will:
@@ -315,6 +316,7 @@ Scelta: 3
 + Progetto: Generali
   [X] Studiare design patterns
 ```
+
 
 ---
 ### Class Diagram
@@ -397,7 +399,7 @@ classDiagram
 ### Current Limitations
 
 #### 1. Sorting Strategies
-**Limitation**: Only 2 strategies implemented (Alphabetical, Insertion order).
+**Limitation**: Only 3 strategies implemented (Alphabetical, Insertion order, Alphabetical Reverese).
 
 **Impact**: Limited user flexibility for organization.
 
@@ -416,7 +418,6 @@ classDiagram
 **Future Work**:
 - JavaFX/Swing GUI
 - Web interface (Spring Boot + REST API)
-- Mobile app (Android/iOS)
 
 ---
 
@@ -425,8 +426,7 @@ classDiagram
 
 **Impact**: Difficult to find specific tasks in large projects.
 
-**Future Work**:
-Implement task research
+**Future Work**: Implement task research
 
 ---
 
@@ -462,6 +462,17 @@ Implement task research
 
 ---
 
+#### 7. Flat UI Hierarchy
+**Limitation**: There isn't an option to add nested projects despite the Composite Pattern support in the core logic.
+
+**Impact**: Users are restricted to a single level of organization
+
+**Future Work**: 
+- Expand the UI to support sub-project creation  
+- Upgrade StorageManager to a hierarchical format like JSON
+
+---
+
 
 ### Security Enhancements
 
@@ -483,7 +494,6 @@ Implement task research
 ### Test File: `TaskTest.java`
 
 #### Test Coverage
-
 ```
 | Pattern/Feature | Test Method | Status |
 |----------------|-------------|--------|
@@ -501,7 +511,11 @@ The junit.jar file is already included in the project folder
 #### Execution
 
 # Compile tests
+- MacOS/Linux
 javac -cp .:junit.jar TaskTest.java
+
+- Windows
+javac -cp ".;junit.jar" TaskTest.java
 
 # Run tests
 java -jar junit.jar --class-path . --scan-class-path
