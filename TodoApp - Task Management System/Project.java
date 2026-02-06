@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-// Il "Composite" che contiene altri TaskComponent
 public class Project implements TaskComponent, Iterable<TaskComponent> {
     private String nomeProgetto;
     private List<TaskComponent> componenti = new ArrayList<>();
@@ -20,24 +19,20 @@ public class Project implements TaskComponent, Iterable<TaskComponent> {
         componenti.add(componente);
     }
 
-    // Metodo per svuotare il progetto
     public void svuotaProgetto() {
         this.componenti.clear();
         this.strategia = null; 
     }
 
-    /**
-     * Tenta di completare un task nel progetto corrente.
-     * @return true se il task è stato trovato e completato, false altrimenti.
-     */
+    // Eseguo verifiche quando si vuole segnare un task come "fatto"
     public boolean completaTask(String nome) {
         for (TaskComponent c : componenti) {
-            // Se è un task semplice e il nome coincide
+            // Verifico se è un task semplice e il nome coincide
             if (c instanceof SimpleTask && c.getName().equalsIgnoreCase(nome)) {
                 ((SimpleTask) c).setCompletato(true);
                 System.out.println("Task '" + nome + "' segnato come completato!");
                 
-                // Controllo "Well Done"
+                // Controllo e conferma
                 if (this.isCompleted() && !componenti.isEmpty()) {
                     System.out.println("\n🌟 Complimenti! Tutti i task del progetto \"" + nomeProgetto + "\" sono stati completati; well done!");
                 }
@@ -51,7 +46,7 @@ public class Project implements TaskComponent, Iterable<TaskComponent> {
         return false; 
     }
 
-    // Rimuove i task completati (Stream API)
+    // Rimuove i task completati 
     public void rimuoviCompletati() {
         componenti.removeIf(TaskComponent::isCompleted);
     }
