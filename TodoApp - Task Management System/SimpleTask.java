@@ -6,13 +6,13 @@ public class SimpleTask implements TaskComponent {
     private String nome;
     private boolean completato;
 
-    // Quando crei un task, nasce sempre come "da fare" (false)
+    // Quando si crea un task, nasce sempre come "da fare" 
     public SimpleTask(String nome) {
         this.nome = nome;
         this.completato = false;
     }
 
-    // NUOVO: Permette di cambiare lo stato del task (es. da [ ] a [X])
+    // Permette di segnare il task come completato
     public void setCompletato(boolean completato) {
         this.completato = completato;
     }
