@@ -270,13 +270,15 @@ TodoApp/
 
 #### Option 1: Command Line
 
-# Compile with JUnit
+## Compile with JUnit
 - MacOS/Linux
+```
 javac -cp .:junit.jar TaskTest.java
-
+```
 - Windows
+```
 javac -cp ".;junit.jar" TaskTest.java
-
+```
 Note: the junit.jar is already included in the project folder
 
 #### Option 2: IDE (IntelliJ IDEA / Eclipse)
